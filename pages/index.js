@@ -4,18 +4,23 @@ import useMaker from '../hooks/useMaker';
 import useBlockHeight from '../hooks/useBlockHeight';
 import { connectBrowserProvider } from '../maker';
 import DaiCoins from '../components/daiCoins';
-import ReactGA from "react-ga";
+import ReactGA from 'react-ga';
 
 const ILink = ({ children, link }) => {
   const onClick = (link, children) => {
     ReactGA.event({
-      category: "LinkClick",
+      category: 'LinkClick',
       action: children,
       label: link
     });
-  }
+  };
   return (
-    <a className="inline-link" onClick={onClick} href={link || '#'} target="_blank">
+    <a
+      className="inline-link"
+      onClick={onClick}
+      href={link || '#'}
+      target="_blank"
+    >
       {children}
       <style jsx>{`
         .inline-link {
@@ -36,14 +41,12 @@ const Home = () => {
   const [additional, setAdd] = useState(0);
   const blockHeight = useBlockHeight(0);
 
-  console.log(blockHeight);
-
-  useEffect(() =>{
+  useEffect(() => {
     if (window !== undefined) {
-      ReactGA.initialize("UA-154852830-1");
+      ReactGA.initialize('UA-154852830-1');
       ReactGA.pageview(window.location.pathname + window.location.search);
     }
-  }, [])
+  }, []);
 
   async function connectBrowserWallet() {
     try {
@@ -60,7 +63,7 @@ const Home = () => {
   const makeItDrip = async () => {
     setAdd(additional + 6);
     ReactGA.event({
-      category: "action",
+      category: 'action',
       action: 'call drip'
     });
     try {
@@ -92,20 +95,63 @@ const Home = () => {
   return (
     <div className="wrap">
       <Head>
-        <title>Make it drip Dai!</title>
-        <meta name="description" content="Learn more about how DSR works."></meta>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Make It Drip Dai</title>
+        <meta name="title" content="Make It Drip Dai" />
+        <meta
+          name="description"
+          content="Learn more about how #MuchCoolerDai DSR works."
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://daidrip.tech/" />
+        <meta property="og:title" content="Make It Drip Dai" />
+        <meta
+          property="og:description"
+          content="Learn more about how #MuchCoolerDai DSR works."
+        />
+        <meta property="og:image" content="/dais2.png" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://daidrip.tech/" />
+        <meta property="twitter:title" content="Make It Drip Dai" />
+        <meta
+          property="twitter:description"
+          content="Learn more about how #MuchCoolerDai DSR works."
+        />
+        <meta property="twitter:image" content="/dais2.png" />
         <link
           href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,700&display=swap"
           rel="stylesheet"
         ></link>
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest"></link>
       </Head>
 
       <div className="content">
-        <h1>Make it Drip Dai!</h1>
+        <h1>Make It Drip Dai!</h1>
 
         <p className="text">
-          In <ILink link="https://twitter.com/search?q=%23MuchCoolerDai">#MuchCoolerDai</ILink>'s Dai Savings Rate contract{' '}
+          In{' '}
+          <ILink link="https://twitter.com/search?q=%23MuchCoolerDai">
+            #MuchCoolerDai
+          </ILink>
+          's Dai Savings Rate contract{' '}
           <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">
             (Pot)
           </ILink>
@@ -137,7 +183,8 @@ const Home = () => {
         </p>
 
         <p className="text">
-          To learn more about the tech behind DSR, Dai and the rest of the Maker protocol, check out the docs at{' '}
+          To learn more about the tech behind DSR, Dai and the rest of the Maker
+          protocol, check out the docs at{' '}
           <ILink link="https://docs.makerdao.com/">docs.makerdao.com</ILink>.
         </p>
 
@@ -146,20 +193,26 @@ const Home = () => {
             Call Pot.drip
           </button>
           <a href="https://oasis.app/save" target="_blank">
-            <button onClick={() => {
-                  ReactGA.event({
-                    category: "action",
-                    action: 'link oasis',
-                  });
-            }}>Start earning on your Dai</button>
+            <button
+              onClick={() => {
+                ReactGA.event({
+                  category: 'action',
+                  action: 'link oasis'
+                });
+              }}
+            >
+              Start earning on your Dai
+            </button>
           </a>
         </div>
 
         <p className="text small-text">
-          There's {pie && pie.toNumber().toLocaleString()} Dai in the <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#2-contract-details">
+          There's {pie && pie.toNumber().toLocaleString()} Dai in the{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#2-contract-details">
             Pie
-          </ILink> right
-          now earning {rate && Math.round(rate.toNumber() * 100 - 100)}% a year.
+          </ILink>{' '}
+          right now earning {rate && Math.round(rate.toNumber() * 100 - 100)}% a
+          year.
         </p>
 
         <p className="text small-text colophon">
@@ -178,8 +231,6 @@ const Home = () => {
       <DaiCoins dai={pie && pie.toNumber()} add={additional} />
 
       <style jsx>{`
-
-        
         .wrap {
           width: 100%;
           height: 125vh;
@@ -249,7 +300,7 @@ const Home = () => {
         html,
         body,
         body > div:first-child,
-        div#__next{
+        div#__next {
           height: 100%;
           margin: 0;
           padding: 0;
