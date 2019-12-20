@@ -3,7 +3,7 @@ import Head from 'next/head';
 import useMaker from '../hooks/useMaker';
 import useBlockHeight from '../hooks/useBlockHeight';
 import { connectBrowserProvider } from '../maker';
-import Dais from '../components/dais';
+import DaiCoins from '../components/daiCoins';
 
 const ILink = ({ children, link }) => {
   return (
@@ -73,7 +73,8 @@ const Home = () => {
   return (
     <div className="wrap">
       <Head>
-        <title>Home</title>
+        <title>Make it drip Dai!</title>
+        <description> Learn about how DSR works!</description>
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,700&display=swap"
@@ -85,13 +86,39 @@ const Home = () => {
         <h1>Make it Drip Dai!</h1>
 
         <p className="text">
-          In Maker's Dai Savings Rate contract <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">(Pot)</ILink>,{' '}
-          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#3-key-mechanisms-and-concepts">drip</ILink> is the call that updates the DSR rate accumulator{' '}
-          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#3-key-mechanisms-and-concepts">(chi)</ILink> and pulls Dai from the Maker Protocol's balance
-          sheet <ILink link="https://docs.makerdao.com/smart-contract-modules/system-stabilizer-module/vow-detailed-documentation">(vow)</ILink> by increasing the system debt{' '}
-          <ILink link="https://docs.makerdao.com/other-documentation/system-glossary#vow-settlement">(Sin)</ILink>. Drip has to be called when users adds{' '}
-          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">(join)</ILink> or withdraws <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">(exit)</ILink> Dai from the
-          DSR <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#2-contract-details">Pie</ILink> but anyone can call it at any time!
+          In Maker's Dai Savings Rate contract{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">
+            (Pot)
+          </ILink>
+          ,{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#3-key-mechanisms-and-concepts">
+            drip
+          </ILink>{' '}
+          is the call that updates the DSR rate accumulator{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#3-key-mechanisms-and-concepts">
+            (chi)
+          </ILink>{' '}
+          and adds Dai by calculating the system debt{' '}
+          <ILink link="https://docs.makerdao.com/other-documentation/system-glossary#accounting">
+            (vice)
+          </ILink>{' '}
+          of Maker Protocol's balance sheet{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/system-stabilizer-module/vow-detailed-documentation">
+            (vow)
+          </ILink>
+          . Drip has to be called when users adds{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">
+            (join)
+          </ILink>{' '}
+          or withdraws{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">
+            (exit)
+          </ILink>{' '}
+          Dai from the DSR{' '}
+          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#2-contract-details">
+            Pie
+          </ILink>{' '}
+          but anyone can call it any time!
         </p>
 
         <p className="text">
@@ -109,23 +136,35 @@ const Home = () => {
         </div>
 
         <p className="text small-text">
-          There's {pie && pie.toNumber().toLocaleString()} Dai in the Pie right now
-          earning {rate && Math.round(rate.toNumber() * 100 - 100)}% a year
+          There's {pie && pie.toNumber().toLocaleString()} Dai in the Pie right
+          now earning {rate && Math.round(rate.toNumber() * 100 - 100)}% a year.
         </p>
 
-        <p className="text small-text">
-          MWLB <ILink link="https://twitter.com/adrianleb">@adrianleb</ILink>, <ILink>le code</ILink>
+        <p className="text small-text colophon">
+          A public technical announcement by{' '}
+          <ILink link="https://twitter.com/adrianleb">@adrianleb</ILink> about{' '}
+          <ILink link="https://blog.makerdao.com/why-the-dai-savings-rate-is-a-game-changer-for-the-defi-ecosystem-and-beyond/">
+            the wonders of DSR
+          </ILink>
+          ,{' '}
+          <ILink link="https://github.com/adrianleb/dai-pot-drip">
+            View Source
+          </ILink>
         </p>
       </div>
 
-      <Dais dai={pie && pie.toNumber()} add={additional} />
+      <DaiCoins dai={pie && pie.toNumber()} add={additional} />
 
       <style jsx>{`
+
+        
         .wrap {
           width: 100%;
+          height: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
+          position: relative;
         }
 
         .content {
@@ -136,11 +175,15 @@ const Home = () => {
           text-align: center;
         }
 
+        @media (max-width: 481px) {
+          .wrap {
+            height: 120vh;
+          }
+        }
         button {
           appearance: none;
-          height: 32px;
-          font-size: 13px;
-          padding: 0 24px;
+          font-size: 12px;
+          padding: 8px 24px;
           font-family: 'IBM Plex Mono', monospace;
           margin: 0 8px;
         }
@@ -149,7 +192,7 @@ const Home = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin: 16px 0 0;
+          margin: 8px 0 0;
         }
 
         h1 {
@@ -170,14 +213,17 @@ const Home = () => {
           padding-bottom: 0;
           color: #444;
         }
+
+        .colophon {
+          margin-top: 8px;
+        }
       `}</style>
 
       <style global jsx>{`
         html,
         body,
         body > div:first-child,
-        div#__next,
-        div#__next > div {
+        div#__next{
           height: 100%;
           margin: 0;
           padding: 0;
