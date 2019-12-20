@@ -4,10 +4,18 @@ import useMaker from '../hooks/useMaker';
 import useBlockHeight from '../hooks/useBlockHeight';
 import { connectBrowserProvider } from '../maker';
 import DaiCoins from '../components/daiCoins';
+import ReactGA from "react-ga";
 
 const ILink = ({ children, link }) => {
+  const onClick = (link, children) => {
+    ReactGA.event({
+      category: "LinkClick",
+      action: children,
+      label: link
+    });
+  }
   return (
-    <a className="inline-link" href={link || '#'} target="_blank">
+    <a className="inline-link" onClick={onClick} href={link || '#'} target="_blank">
       {children}
       <style jsx>{`
         .inline-link {
@@ -30,6 +38,13 @@ const Home = () => {
 
   console.log(blockHeight);
 
+  useEffect(() =>{
+    if (window !== undefined) {
+      ReactGA.initialize("UA-154852830-1");
+      ReactGA.pageview(window.location.pathname + window.location.search);
+    }
+  }, [])
+
   async function connectBrowserWallet() {
     try {
       if (maker) {
@@ -44,6 +59,10 @@ const Home = () => {
 
   const makeItDrip = async () => {
     setAdd(additional + 6);
+    ReactGA.event({
+      category: "action",
+      action: 'call drip'
+    });
     try {
       if (!account) {
         await connectBrowserWallet();
@@ -86,7 +105,7 @@ const Home = () => {
         <h1>Make it Drip Dai!</h1>
 
         <p className="text">
-          In Maker's Dai Savings Rate contract{' '}
+          In <ILink link="https://twitter.com/search?q=%23MuchCoolerDai">#MuchCoolerDai</ILink>'s Dai Savings Rate contract{' '}
           <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">
             (Pot)
           </ILink>
@@ -94,7 +113,7 @@ const Home = () => {
           <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#3-key-mechanisms-and-concepts">
             drip
           </ILink>{' '}
-          is the call that updates the DSR rate accumulator{' '}
+          is the function that updates the DSR accumulator{' '}
           <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#3-key-mechanisms-and-concepts">
             (chi)
           </ILink>{' '}
@@ -106,7 +125,7 @@ const Home = () => {
           <ILink link="https://docs.makerdao.com/smart-contract-modules/system-stabilizer-module/vow-detailed-documentation">
             (vow)
           </ILink>
-          . Drip has to be called when users adds{' '}
+          . Drip has to be called when a user adds{' '}
           <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">
             (join)
           </ILink>{' '}
@@ -118,7 +137,7 @@ const Home = () => {
         </p>
 
         <p className="text">
-          To learn more about the tech behind Dai, DSR and the rest of the Maker protocol, check out the docs at{' '}
+          To learn more about the tech behind DSR, Dai and the rest of the Maker protocol, check out the docs at{' '}
           <ILink link="https://docs.makerdao.com/">docs.makerdao.com</ILink>.
         </p>
 
@@ -127,7 +146,12 @@ const Home = () => {
             Call Pot.drip
           </button>
           <a href="https://oasis.app/save" target="_blank">
-            <button>Start earning on your Dai</button>
+            <button onClick={() => {
+                  ReactGA.event({
+                    category: "action",
+                    action: 'link oasis',
+                  });
+            }}>Start earning on your Dai</button>
           </a>
         </div>
 
@@ -158,7 +182,7 @@ const Home = () => {
         
         .wrap {
           width: 100%;
-          height: 111vh;
+          height: 125vh;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -195,6 +219,10 @@ const Home = () => {
 
         h1 {
           font-weight: 700;
+          font-size: 22px;
+          margin: 0;
+          padding: 0;
+          margin-bottom: 8px;
         }
 
         .text {
@@ -202,7 +230,7 @@ const Home = () => {
           margin: 0 auto;
           text-align: center;
           line-height: 1.75;
-          font-size: 12px;
+          font-size: 14px;
           padding: 8px 4px;
         }
 

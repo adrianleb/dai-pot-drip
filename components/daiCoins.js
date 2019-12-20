@@ -26,31 +26,32 @@ function Plane({ position }) {
 
   return (
     <mesh ref={ref} receiveShadow>
-      <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
+      <planeBufferGeometry attach="geometry" args={[300, 300]} />
       <meshPhongMaterial attach="material" color="#fff" />
     </mesh>
   );
 }
 
 function Box({ position, index }) {
-  const cylinderParams = [1, 1, 0.1, 11];
+  const cylinderParams = [1, 1, 0.1, 10];
 
   const ref = useCannon({ mass: 5 }, body => {
     const shape = new CANNON.Cylinder(...cylinderParams);
     const quat = new CANNON.Quaternion();
     const translation = new CANNON.Vec3(0, 0, 0);
     const bodyAngle = Math.PI / getRandomInt(0, 180);
-    const bodyAxis = new CANNON.Vec3(
+    const bodyAxis = new CANNON.Quaternion(
       getRandomInt(0, 50),
       getRandomInt(0, 80),
       getRandomInt(0, 50)
     );
 
-    quat.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+    quat.setFromAxisAngle(new CANNON.Quaternion(1, 0, 0), -Math.PI / 2);
     shape.transformAllPoints(translation, quat);
     body.addShape(shape);
     body.position.set(...position);
     body.quaternion.setFromAxisAngle(bodyAxis, bodyAngle);
+    // body.sleepSpeedLimit = 0.1;
   });
 
   const texture = useMemo(() => new THREE.TextureLoader().load(daiImg), [
@@ -72,7 +73,7 @@ function Box({ position, index }) {
 }
 
 export default function DaiCoins({ dai, add }) {
-  const count = 42 + add;
+  const count = 72 + add;
   const shapes = useMemo(() => {
     if (count) {
       return times(count, i => {
@@ -80,9 +81,9 @@ export default function DaiCoins({ dai, add }) {
           <Box
             index={`coin-${i}`}
             position={[
-              getRandomInt(0, 7),
-              getRandomInt(0, 7),
-              getRandomInt(0, 100, true)
+              getRandomInt(0, 10),
+              getRandomInt(0, 5),
+              getRandomInt(20, 120, true)
             ]}
           />
         );
@@ -92,7 +93,7 @@ export default function DaiCoins({ dai, add }) {
 
   return (
     <Canvas
-      camera={{ position: [0, -7, 30], fov: 65 }}
+      camera={{ position: [0, -7, 25], fov: 65 }}
       shadowMap
       onCreated={({ scene }) => {
         scene.rotation.set((Math.PI / 4.2) * -1, 0, 0);
