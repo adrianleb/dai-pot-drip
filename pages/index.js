@@ -122,7 +122,7 @@ const Home = () => {
         </p>
 
         <p className="text">
-          For more information on how Dai and the DSR works, check out{' '}
+          To learn more about about the technicals behind Dai, DSR and the rest of the Maker protocol, check out the docs at{' '}
           <ILink link="https://docs.makerdao.com/">docs.makerdao.com</ILink>.
         </p>
 
