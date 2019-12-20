@@ -74,7 +74,7 @@ const Home = () => {
     <div className="wrap">
       <Head>
         <title>Make it drip Dai!</title>
-        <description> Learn about how DSR works!</description>
+        <meta name="description" content="Learn more about how DSR works."></meta>
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,700&display=swap"
@@ -141,7 +141,7 @@ const Home = () => {
         </p>
 
         <p className="text small-text colophon">
-          A public technical announcement by{' '}
+          A technical PSA by{' '}
           <ILink link="https://twitter.com/adrianleb">@adrianleb</ILink> about{' '}
           <ILink link="https://blog.makerdao.com/why-the-dai-savings-rate-is-a-game-changer-for-the-defi-ecosystem-and-beyond/">
             the wonders of DSR
