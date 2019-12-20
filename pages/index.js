@@ -114,15 +114,11 @@ const Home = () => {
           <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation">
             (exit)
           </ILink>{' '}
-          Dai from the DSR{' '}
-          <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#2-contract-details">
-            Pie
-          </ILink>{' '}
-          but anyone can call it any time!
+          Dai from the DSR but anyone can call it any time!
         </p>
 
         <p className="text">
-          To learn more about about the technicals behind Dai, DSR and the rest of the Maker protocol, check out the docs at{' '}
+          To learn more about the tech behind Dai, DSR and the rest of the Maker protocol, check out the docs at{' '}
           <ILink link="https://docs.makerdao.com/">docs.makerdao.com</ILink>.
         </p>
 
@@ -136,7 +132,9 @@ const Home = () => {
         </div>
 
         <p className="text small-text">
-          There's {pie && pie.toNumber().toLocaleString()} Dai in the Pie right
+          There's {pie && pie.toNumber().toLocaleString()} Dai in the <ILink link="https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation#2-contract-details">
+            Pie
+          </ILink> right
           now earning {rate && Math.round(rate.toNumber() * 100 - 100)}% a year.
         </p>
 
@@ -160,7 +158,7 @@ const Home = () => {
         
         .wrap {
           width: 100%;
-          height: 100%;
+          height: 111vh;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -175,9 +173,9 @@ const Home = () => {
           text-align: center;
         }
 
-        @media (max-width: 481px) {
+        @media (max-width: 681px) {
           .wrap {
-            height: 120vh;
+            height: 135vh;
           }
         }
         button {

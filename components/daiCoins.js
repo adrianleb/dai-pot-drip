@@ -72,7 +72,7 @@ function Box({ position, index }) {
 }
 
 export default function DaiCoins({ dai, add }) {
-  const count = 45 + add;
+  const count = 42 + add;
   const shapes = useMemo(() => {
     if (count) {
       return times(count, i => {
