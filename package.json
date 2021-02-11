@@ -17,7 +17,7 @@
     "@makerdao/currency": "^0.9.6",
     "@makerdao/dai": "^0.23.0-rc.5",
     "@makerdao/dai-plugin-mcd": "^1.0.5",
-    "apexcharts": "^3.10.1",
+    "apexcharts": "^3.24.0",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "apollo-link-http": "^1.5.16",
